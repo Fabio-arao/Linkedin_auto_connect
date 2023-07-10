@@ -1,4 +1,4 @@
-# Seleni_1...<h1 align ="center "> Automatizando Conexões do In...</h1>
+# Seleni_1...<h1 align ="center "> Automatizando Conexões do Linkedin.</h1>
 
 <h1 align="center">
     <a href="https://www.linkedin.com/in/fabiomarquesarao">🔗Meu Linkedin</a>
