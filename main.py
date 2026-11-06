@@ -3,9 +3,14 @@ from selenium.webdriver import Chrome, ChromeOptions
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from datetime import datetime
-from senha_email import password, Email
+from dotenv import load_dotenv
 import time, os
 
+load_dotenv()
+Email = os.getenv("LINKEDIN_EMAIL")
+Password = os.getenv("LINKEDIN_PASSWORD")
+if not Email or not Password:
+    raise SystemExit("Defina LINKEDIN_EMAIL e LINKEDIN_PASSWORD no arquivo .env (veja .env.example).")
 
 
 class Aplication():
@@ -27,10 +32,13 @@ class Aplication():
         self.options = ChromeOptions()
         self.prefs = {"download.default_directory" : os.getcwd(),         
                       "profile.content_settings.exceptions.automatic_downloads.*.setting": 1, 
-                      "safebrowsing.disable_download_protection": True }
-        self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
+                      "safebrowsing.disable_download_protection": True,
+                      # não oferecer "Salvar senha?" nem avisar de "senha vazada"
+                      "credentials_enable_service": False,
+                      "profile.password_manager_enabled": False,
+                      "profile.password_manager_leak_detection": False }
         self.options.add_experimental_option("prefs", self.prefs)
-        self.options.add_experimental_option("excludeSwitches", ['enable-automation'])
+        self.options.add_experimental_option("excludeSwitches", ['enable-logging', 'enable-automation'])
         self.execute_bot()
 
     def execute_bot(self):
@@ -38,11 +46,11 @@ class Aplication():
         Inicia a execuçao do Bot.
         """
         self.webdriver = Chrome(service=self.s, options=self.options)
-        self.url = 'https://www.linkedin.com'
+        self.url = 'https://www.linkedin.com/login'
         self.bot = Linkedin(self.webdriver, self.url)
         self.webdriver.maximize_window()  
         self.bot.open_url()
-        self.bot.login(password, Email) 
+        self.bot.login(Password, Email) 
         self.bot.go_to_connect_peoples()
         self.bot.connect_peoples()
     

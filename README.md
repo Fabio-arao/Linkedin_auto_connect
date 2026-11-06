@@ -48,7 +48,7 @@ Este projeto foi criado **apenas para fins de estudo** do Selenium WebDriver.
 ```
 Linkedin_auto_connect/
 ├── main.py                       # Ponto de entrada: configura o Chrome e executa o fluxo
-├── senha_email.py                # Credenciais de login (e-mail e senha)
+├── .env.example                  # Modelo do .env com as credenciais de login
 ├── bot/
 │   └── bot.py                    # Classe Linkedin: locators, login, busca e conexões
 └── page_element/
@@ -88,17 +88,17 @@ source venv/bin/activate
 **3. Instale as dependências**
 
 ```bash
-pip install selenium webdriver-manager pandas beautifulsoup4
+pip install selenium webdriver-manager pandas beautifulsoup4 python-dotenv
 ```
 
-**4. Informe suas credenciais** em `senha_email.py`:
+**4. Informe suas credenciais** num arquivo `.env` na raiz (copie o `.env.example`):
 
-```python
-password = "sua_senha"
-Email = "seu_email@exemplo.com"
+```env
+LINKEDIN_EMAIL="seu_email@exemplo.com"
+LINKEDIN_PASSWORD="sua_senha"
 ```
 
-> 🔒 Não faça commit desse arquivo com dados reais. Uma alternativa é adicioná-lo ao `.gitignore` ou usar variáveis de ambiente.
+> 🔒 O `.env` já está no `.gitignore`, então suas credenciais não vão para o repositório.
 
 **5. Execute o bot**
 
